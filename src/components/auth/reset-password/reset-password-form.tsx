@@ -1,14 +1,14 @@
 'use client';
 import { useState } from 'react';
 import Spinner from '@/components/ui/spinner';
-import { usePostResetPassword } from '@/hooks';
+import { useResetPassword } from '@/new-hooks';
 interface Props {
   token: string;
 }
 const ResetPasswordForm = ({ token }: Props) => {
   const [showPassword, setShowPassword] = useState<boolean>(false);
   const { handleSubmit, register, onSubmit, mutation, errors } =
-    usePostResetPassword({
+    useResetPassword({
       token,
     });
   return (

@@ -3,11 +3,11 @@ import Link from 'next/link';
 import Spinner from '@/components/ui/spinner';
 import { titleFont } from '@/config/fonts';
 import { Button } from '@/components/ui/button';
-import usePostSendEmail from '@/hooks/auth/forgot-password/usePostSendEmail';
+import { useSendEmail } from '@/new-hooks';
 
 const ForgotPasswordForm = () => {
   const { handleSubmit, onSubmit, register, mutation, emailSent, errors } =
-    usePostSendEmail();
+    useSendEmail();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate>

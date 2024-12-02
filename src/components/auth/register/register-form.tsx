@@ -15,8 +15,8 @@ import {
   useGetAllJobPositions,
   useGetAllGender,
   useGetMaritalStatus,
-  usePostEmployee,
 } from '@/hooks';
+import { useRegister } from '@/new-hooks';
 
 const RegisterForm = () => {
   const { genders } = useGetAllGender();
@@ -29,7 +29,7 @@ const RegisterForm = () => {
     mutation,
     errors,
     setValue,
-  } = usePostEmployee();
+  } = useRegister();
 
   return (
     <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">

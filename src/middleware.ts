@@ -1,8 +1,8 @@
 import { getToken } from 'next-auth/jwt';
 import { NextRequest, NextResponse } from 'next/server';
 import { jwtDecode } from 'jwt-decode';
-import { Payload } from './types/auth/authResponseTypes';
 import { Roles } from './lib/constants';
+import { Payload } from './new-types';
 
 async function authMiddleware(req: NextRequest) {
   try {

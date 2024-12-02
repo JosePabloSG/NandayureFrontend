@@ -1,17 +1,17 @@
 'use client';
 import { Button } from '@/components/ui/button';
 import Spinner from '@/components/ui/spinner';
-import usePostLogin from '@/hooks/auth/login/usePostLogin';
 import Link from 'next/link';
 import { useState } from 'react';
 import { Eye, EyeOff } from 'lucide-react';
+import { useLogin } from '@/new-hooks';
 
 const LoginForm = () => {
   const [showPassword, setShowPassword] = useState(false);
-  const { register, errors, onSubmit, isLoading, error } = usePostLogin();
+  const { register, errors, onSubmit, handleSubmit, isLoading } = useLogin();
 
   return (
-    <form onSubmit={onSubmit} noValidate className="space-y-6">
+    <form onSubmit={handleSubmit(onSubmit)} noValidate className="space-y-6">
       <div>
         <label
           htmlFor="EmployeeId"
@@ -59,11 +59,13 @@ const LoginForm = () => {
         {errors.Password && (
           <p className="text-red-500 text-xs mt-1">{errors.Password.message}</p>
         )}
-        {error && <p className="text-red-500 text-xs mt-1">{error}</p>}
+        {errors.root && (
+          <p className="text-red-500 text-xs mt-1">{errors.root.message}</p>
+        )}
       </div>
 
       <div className="flex ">
-    
+
         <Link href="/auth/forgot-password" className="text-sm text-indigo-600 hover:text-indigo-500">
           ¿Olvidaste tu contraseña?
         </Link>
