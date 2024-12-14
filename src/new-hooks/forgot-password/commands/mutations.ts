@@ -1,9 +1,9 @@
-import { postForgotPassword } from "@/services";
 import { ForgotPassword } from "@/types";
 import { EmailSendSchema } from "@/schemas";
 import { useMutation } from "@tanstack/react-query";
 import { UseFormSetError } from "react-hook-form";
 import { z } from "zod";
+import { postForgotPassword } from "@/new-services";
 
 export type FormsFields = z.infer<typeof EmailSendSchema>;
 

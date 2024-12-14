@@ -17,7 +17,7 @@ import {
 import Flag from '@/components/common/Flag';
 import Spinner from '@/components/ui/spinner';
 import { titleFont } from '@/config/fonts';
-import { usePostVacation } from '@/hooks';
+import { useCreateRequestVacation } from '@/new-hooks';
 
 export default function RequestVacationForm() {
   const [date, setDate] = useState<DateRange | undefined>({
@@ -25,7 +25,7 @@ export default function RequestVacationForm() {
     to: addDays(new Date(), 7),
   });
 
-  const { onSubmit: submitVacationRequest, setValue, mutation, errors } = usePostVacation();
+  const { onSubmit: submitVacationRequest, setValue, mutation, errors } = useCreateRequestVacation();
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();

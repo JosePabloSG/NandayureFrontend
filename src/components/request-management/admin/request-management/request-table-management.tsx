@@ -1,13 +1,12 @@
 'use client';
-import { useGetAllRequest } from '@/hooks';
 import { useState, useMemo } from 'react';
 import RequestTable from './request-table';
 import RequestModal from './request-modal';
 import { useDebounce } from '@/hooks/common/useDebounce';
 import SearchBar from './search-bar/search-bar';
 import TypeSelector from './type-selector/type-selector';
-import { XCircle } from 'lucide-react';
 import { RequestDetails } from '@/types/request-management/commonTypes';
+import { useGetAllRequests } from '@/new-hooks';
 
 export default function RequestTableManagement() {
   const [selectedRequest, setSelectedRequest] = useState<RequestDetails | null>(null);
@@ -18,7 +17,7 @@ export default function RequestTableManagement() {
   const debouncedSelectedType = useDebounce<string>(selectedType, 500);
   const debouncedSelectedState = useDebounce<string>(selectedState, 500);
 
-  const { allRequests, isLoading } = useGetAllRequest();
+  const { requests, isLoading } = useGetAllRequests();
 
   const types = {
     1: 'Vacaciones',
@@ -42,7 +41,7 @@ export default function RequestTableManagement() {
 
 
   const filteredRequests = useMemo(() => {
-    let filtered = allRequests || [];
+    let filtered = requests || [];
 
     if (debouncedSearchQuery) {
       filtered = filtered.filter((request) =>
@@ -65,7 +64,7 @@ export default function RequestTableManagement() {
     filtered.sort((a, b) => b.id - a.id);
 
     return filtered;
-  }, [allRequests, debouncedSearchQuery, debouncedSelectedType, debouncedSelectedState]);
+  }, [requests, debouncedSearchQuery, debouncedSelectedType, debouncedSelectedState]);
 
   return (
     <div className="container mx-auto py-10">

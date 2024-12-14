@@ -6,7 +6,7 @@ const useGetEmployeeId = (): { employeeId: number | undefined } => {
   if (!session) {
     return { employeeId: undefined };
   }
-  const employeeId = session?.user?.employeeId;
+  const employeeId = session?.user?.employeeId
   return { employeeId };
 };
 

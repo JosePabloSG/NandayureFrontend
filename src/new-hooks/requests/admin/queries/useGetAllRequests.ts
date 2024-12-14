@@ -1,7 +1,7 @@
-import { getAllRequests } from '@/services';
+import { getAllRequests } from '@/new-services';
 import { useQuery } from '@tanstack/react-query';
 
-const useGetAllRequest = () => {
+const useGetAllRequests = () => {
   const {
     data,
     isLoading,
@@ -21,4 +21,5 @@ const useGetAllRequest = () => {
   };
 };
 
-export default useGetAllRequest;
+
+export default useGetAllRequests;

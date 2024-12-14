@@ -1,9 +1,9 @@
-import { postEmployee } from "@/services";
 import { Employee } from "@/types";
 import { RegisterSchema } from "@/schemas";
 import { useMutation } from "@tanstack/react-query";
 import { UseFormSetError } from "react-hook-form";
 import { z } from "zod";
+import { postEmployee } from "@/new-services";
 
 export type FormsFields = z.infer<typeof RegisterSchema>;
 

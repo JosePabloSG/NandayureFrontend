@@ -4,10 +4,10 @@ import { Button } from '@/components/ui/button';
 import InputField from '@/components/ui/input-field';
 import Spinner from '@/components/ui/spinner';
 import { titleFont } from '@/config/fonts';
-import { usePostPaySlip } from '@/hooks';
+import { useCreatePaySlip } from '@/new-hooks';
 
 const PaySlipForm = () => {
-  const { onSubmit, register, mutation } = usePostPaySlip();
+  const { onSubmit, register, mutation } = useCreatePaySlip();
   return (
     <form onSubmit={onSubmit}>
       <h5

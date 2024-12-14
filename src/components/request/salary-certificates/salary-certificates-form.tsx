@@ -5,10 +5,10 @@ import { Button } from '@/components/ui/button';
 import InputField from '@/components/ui/input-field';
 import Spinner from '@/components/ui/spinner';
 import { titleFont } from '@/config/fonts';
-import { usePostSalaryCetificates } from '@/hooks';
+import { useCreateRequestSalaryCertificate } from '@/new-hooks';
 
 const SalaryCertificatesForm = () => {
-  const { onSubmit, register, mutation } = usePostSalaryCetificates();
+  const { onSubmit, register, mutation } = useCreateRequestSalaryCertificate();
   return (
     <form onSubmit={onSubmit}>
       <h5

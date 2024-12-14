@@ -16,13 +16,12 @@ import {
 } from '@/components/ui/dialog';
 import { Textarea } from '@/components/ui/textarea';
 import { Badge } from '@/components/ui/badge';
-import { useGetCurrentToApprove } from '@/hooks';
-import usePatchRequestApproval from '@/hooks/request-management/usePatchRequestApproval';
 import SkeletonLoader from '@/components/ui/skeleton-loader';
 import { formatDate } from '@/lib/utils';
+import { useGetPendingApprovals, useProcessApproval } from '@/new-hooks';
 
 export default function InboxComponent() {
-  const { currentToApprove, isLoading } = useGetCurrentToApprove();
+  const { pendingApprovals, isLoading } = useGetPendingApprovals();
   const {
     register,
     handleSubmit,
@@ -31,7 +30,7 @@ export default function InboxComponent() {
     selectedRequest,
     onSubmit,
     handleRequestClick,
-  } = usePatchRequestApproval();
+  } = useProcessApproval();
 
   return (
     <div className="relative">
@@ -39,12 +38,12 @@ export default function InboxComponent() {
         <PopoverTrigger asChild>
           <Button className="relative bg-transparent text-black hover:bg-gray-100 focus:outline-none">
             <Inbox className="h-5 w-5" />
-            {Array.isArray(currentToApprove) && currentToApprove.length > 0 && (
+            {Array.isArray(pendingApprovals) && pendingApprovals.length > 0 && (
               <Badge
                 variant="destructive"
                 className="absolute -top-2 -right-2 px-2 py-1"
               >
-                {currentToApprove.length}
+                {pendingApprovals.length}
               </Badge>
             )}
           </Button>
@@ -53,7 +52,7 @@ export default function InboxComponent() {
           <div className="space-y-2">
             <h3 className="font-medium">
               Solicitudes pendientes (
-              {Array.isArray(currentToApprove) ? currentToApprove.length : 0})
+              {Array.isArray(pendingApprovals) ? pendingApprovals.length : 0})
             </h3>
             {isLoading ? (
               <>
@@ -61,12 +60,12 @@ export default function InboxComponent() {
                 <SkeletonLoader className="h-6 w-full mb-2" />
                 <SkeletonLoader className="h-6 w-full mb-2" />
               </>
-            ) : Array.isArray(currentToApprove) &&
-              currentToApprove.length === 0 ? (
+            ) : Array.isArray(pendingApprovals) &&
+              pendingApprovals.length === 0 ? (
               <p>No hay solicitudes pendientes</p>
             ) : (
-              Array.isArray(currentToApprove) &&
-              currentToApprove.map((request) => (
+              Array.isArray(pendingApprovals) &&
+              pendingApprovals.map((request) => (
                 <div
                   key={request.id}
                   className="flex flex-col p-2 hover:bg-gray-100 rounded cursor-pointer"
