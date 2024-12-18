@@ -1,5 +1,3 @@
-// src/services/index.ts
-
 import { Annuity, AnnuityEmployee } from '@/types';
 import httpClient from '@/helpers/httpClient';
 

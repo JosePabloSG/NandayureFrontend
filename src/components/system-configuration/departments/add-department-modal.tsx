@@ -23,21 +23,21 @@ import {
 import { Plus } from 'lucide-react';
 import { BudgetCodeItem } from './budget-code-item';
 import { Input } from '@/components/ui/input';
+import { useCreateDepartment } from '@/new-hooks';
 
 export default function AddDepartmentModal() {
   const {
     register,
     onSubmit,
-    handleSubmit,
     handleAddNew,
     isAddModalOpen,
     setIsAddModalOpen,
     errors,
     setValue,
-  } = usePostDepartment();
-  const { employees } = useGetAllEmployees();
-  const { departmentPrograms } = useGetAllDepartmentPrograms();
-  const { budgetCodes } = useGetAllBudgetCodes();
+  } = useCreateDepartment();
+  const { employees } = useGetAllEmployees(); // TODO: Migration pending
+  const { departmentPrograms } = useGetAllDepartmentPrograms(); // TODO: Migration pending
+  const { budgetCodes } = useGetAllBudgetCodes(); // TODO: Migration pending
 
   return (
     <>
@@ -49,7 +49,7 @@ export default function AddDepartmentModal() {
           <DialogHeader>
             <DialogTitle>Agregar Nuevo Departamento</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)} noValidate>
+          <form onSubmit={onSubmit} noValidate>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="name">Nombre</Label>

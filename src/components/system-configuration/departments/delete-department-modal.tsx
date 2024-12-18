@@ -8,7 +8,7 @@ import {
   DialogTitle,
 } from '@/components/ui/dialog';
 import ErrorModal from '@/components/ui/error-modal';
-import { useDeleteDepartment } from '@/hooks';
+import { useDeleteDepartment } from '@/new-hooks';
 import { Trash2 } from 'lucide-react';
 
 interface Props {

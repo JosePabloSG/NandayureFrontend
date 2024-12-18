@@ -9,3 +9,6 @@ export interface Employee extends Person {
   GenderId: number;
   JobPositionId: number;
 }
+
+
+export interface UpdateEmployee extends Partial<Employee> {}

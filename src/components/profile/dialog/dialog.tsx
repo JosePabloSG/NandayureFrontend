@@ -11,7 +11,8 @@ import {
 import { Input } from '@/components/ui/input';
 import { Label } from '@/components/ui/label';
 import Spinner from '@/components/ui/spinner';
-import { useGetEmployeeId, useUpdateEmployee } from '@/hooks';
+import { useGetEmployeeId } from '@/hooks';
+import { useUpdateEmployeeProfile } from '@/new-hooks';
 import { UpdateEmployee } from '@/types';
 import { useState } from 'react';
 
@@ -35,9 +36,9 @@ export function DialogProfile({
 }: DialogProfileProps) {
   const [isOpen, setIsOpen] = useState(false);
   const { employeeId } = useGetEmployeeId();
-  const { trigger, handleSubmit, mutation, onSubmit, register, errors } =
-    useUpdateEmployee({
-      employeeId: employeeId,
+  const { trigger, mutation, onSubmit, register, errors } =
+    useUpdateEmployeeProfile({
+      employeeId: employeeId ?? 0,
       setIsOpen,
     });
 
@@ -51,7 +52,7 @@ export function DialogProfile({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>{description}</DialogDescription>
         </DialogHeader>
-        <form onSubmit={handleSubmit(onSubmit)}>
+        <form onSubmit={onSubmit}>
           <div className="grid gap-4 py-4">
             {fields.map((field) => (
               <div

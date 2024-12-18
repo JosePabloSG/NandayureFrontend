@@ -9,10 +9,10 @@ import {
   TableHeader,
   TableRow,
 } from '@/components/ui/table';
-import { useGetAllDepartments } from '@/hooks';
 import SkeletonLoader from '@/components/ui/skeleton-loader';
 import EditDepartmentModal from './edit-department-modal';
 import DeleteDepartmentModal from './delete-department-modal';
+import { useGetAllDepartments } from '@/new-hooks';
 
 export default function DepartmentsTable() {
   const { departments, isLoading } = useGetAllDepartments();

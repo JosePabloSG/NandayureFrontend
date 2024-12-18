@@ -25,6 +25,7 @@ import { Department } from '@/types';
 import { Pencil } from 'lucide-react';
 import { useState } from 'react';
 import { BudgetCodeItem } from './budget-code-item';
+import { useUpdateDepartment } from '@/new-hooks';
 
 interface Props {
   department: Department;
@@ -36,14 +37,14 @@ export default function EditDepartmentModal({
   departmentId,
 }: Props) {
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
-  const { register, errors, handleSubmit, onSubmit, mutation, setValue } =
-    usePatchDepartament({
+  const { register, errors, onSubmit, setValue } =
+    useUpdateDepartment({
       setIsOpen: setIsEditModalOpen,
       departmentId: departmentId,
     });
-  const { employees } = useGetAllEmployees();
-  const { departmentPrograms } = useGetAllDepartmentPrograms();
-  const { budgetCodes } = useGetAllBudgetCodes();
+  const { employees } = useGetAllEmployees(); // TODO: Migration pending
+  const { departmentPrograms } = useGetAllDepartmentPrograms(); // TODO: Migration pending
+  const { budgetCodes } = useGetAllBudgetCodes(); // TODO: Migration pending
 
   return (
     <>
@@ -55,7 +56,7 @@ export default function EditDepartmentModal({
           <DialogHeader>
             <DialogTitle>Editar Departamento</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={onSubmit}>
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="name">Nombre</Label>
