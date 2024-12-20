@@ -8,3 +8,4 @@ export * from './request-salary-certificate/request-salary-certificate.types';
 export * from './request-vacation/request-vacation.types';
 export * from './reset-password/reset-password.types';
 export * from './departaments/departments.types'
+export * from './department-programs/department-programs.types'

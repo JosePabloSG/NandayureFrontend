@@ -8,11 +8,3 @@ export async function getAllDepartments() {
   });
   return departments;
 }
-
-export async function getDepartmentById(departmentId: number) {
-  const department = await httpClient<Department>({
-    method: 'GET',
-    endpoint: `/departments/${departmentId}`,
-  });
-  return department;
-}
