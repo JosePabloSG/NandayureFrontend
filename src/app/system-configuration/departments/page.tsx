@@ -18,7 +18,7 @@ export default function DepartmentsPage() {
         <TabsList className="grid w-full grid-cols-3">
           <TabsTrigger value="departments">Departamentos</TabsTrigger>
           <TabsTrigger value="programs">Programas Departamentales</TabsTrigger>
-          <TabsTrigger value="budget-codes">Códigos de Presupuesto</TabsTrigger>
+          <TabsTrigger value="budget-codes" data-cy="sidebar-system-configuration-budget-codes">Códigos de Presupuesto</TabsTrigger>
         </TabsList>
         <TabsContent value="departments">
           <div className="mt-6">

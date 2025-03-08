@@ -25,10 +25,10 @@ export default function DeleteBudgetCodeModal({ id }: Props) {
 
   return (
     <>
-      <Button variant="outline" size="icon" onClick={() => handleDelete()}>
+      <Button variant="outline" size="icon" onClick={() => handleDelete()} data-cy={`delete-budget-${id}`}>
         <Trash2 className="h-4 w-4" />
       </Button>
-      <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+      <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen} data-cy="delete-budget-modal">
         <DialogContent>
           <DialogHeader>
             <DialogTitle>Confirmar Eliminación</DialogTitle>
@@ -44,7 +44,7 @@ export default function DeleteBudgetCodeModal({ id }: Props) {
             >
               Cancelar
             </Button>
-            <Button variant="destructive" onClick={confirmDelete}>
+            <Button variant="destructive" onClick={confirmDelete} data-cy="confirm-delete-budget">
               Eliminar
             </Button>
           </DialogFooter>

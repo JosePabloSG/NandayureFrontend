@@ -27,15 +27,15 @@ export default function EditBudgetCodeMoadol({ budgetCode }: Props) {
 
   return (
     <>
-      <Button variant="outline" size="icon" className="mr-2">
-        <Pencil onClick={() => setIsEditModalOpen(true)} className="h-4 w-4" />
-      </Button>
-      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent>
+   <Button variant="outline" size="icon" className="mr-2" onClick={() => setIsEditModalOpen(true)}>
+   <Pencil className="h-4 w-4" data-cy={`edit-budget-${budgetCode.id}`}/>
+  </Button>
+      <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen} >
+        <DialogContent data-cy="edit-budget-modal">
           <DialogHeader>
             <DialogTitle>Editar Programa Departamental</DialogTitle>
           </DialogHeader>
-          <form onSubmit={handleSubmit(onSubmit)}>
+          <form onSubmit={handleSubmit(onSubmit)} data-cy="edit-budget-form">
             <div className="grid gap-4 py-4">
               <div className="grid gap-2">
                 <Label htmlFor="name">Codigo Salario</Label>
@@ -43,9 +43,11 @@ export default function EditBudgetCodeMoadol({ budgetCode }: Props) {
                   id="CodSalary"
                   defaultValue={budgetCode.CodSalary}
                   {...register('CodSalary')}
+                  data-cy="edit-input-cod-salary"
                 />
                 {errors.CodSalary && (
-                  <p className="text-red-500 text-xs">
+                  <p className="text-red-500 text-xs" 
+                  data-cy="error-edit-cod-salary">
                     {errors.CodSalary.message}
                   </p>
                 )}
@@ -56,9 +58,11 @@ export default function EditBudgetCodeMoadol({ budgetCode }: Props) {
                   id="CodExtra"
                   defaultValue={budgetCode.CodExtra}
                   {...register('CodExtra')}
+                  data-cy="edit-input-cod-extra"
                 />
                 {errors.CodExtra && (
-                  <p className="text-red-500 text-xs">
+                  <p className="text-red-500 text-xs"
+                  data-cy="error-edit-cod-extra">
                     {errors.CodExtra.message}
                   </p>
                 )}
@@ -70,9 +74,11 @@ export default function EditBudgetCodeMoadol({ budgetCode }: Props) {
                   id="CodAnuity"
                   defaultValue={budgetCode.CodAnuity}
                   {...register('CodAnuity')}
+                  data-cy="edit-input-cod-anuity"
                 />
                 {errors.CodAnuity && (
-                  <p className="text-red-500 text-xs">
+                  <p className="text-red-500 text-xs"
+                  data-cy="error-edit-cod-anuity">
                     {errors.CodAnuity.message}
                   </p>
                 )}
@@ -83,16 +89,18 @@ export default function EditBudgetCodeMoadol({ budgetCode }: Props) {
                   id="CodSalaryPlus"
                   defaultValue={budgetCode.CodSalaryPlus}
                   {...register('CodSalaryPlus')}
+                  data-cy="edit-input-cod-salary-plus"
                 />
                 {errors.CodSalaryPlus && (
-                  <p className="text-red-500 text-xs">
+                  <p className="text-red-500 text-xs"
+                  data-cy="error-edit-cod-salary-plus">
                     {errors.CodSalaryPlus.message}
                   </p>
                 )}
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Guardar cambios</Button>
+              <Button type="submit" data-cy="submit-edit-budget">Guardar cambios</Button>
             </DialogFooter>
           </form>
         </DialogContent>

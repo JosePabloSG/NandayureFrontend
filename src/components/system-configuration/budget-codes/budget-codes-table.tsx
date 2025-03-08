@@ -54,7 +54,7 @@ export default function BudgetCodesTable() {
         <AddBudgetCodeModal />
         <SearchBar onSearch={handleSearch} placeholder="Buscar códigos de presupuesto..." className="max-w-md" />
       </div>
-      <Table>
+      <Table data-cy="budget-code-list">
         <TableHeader>
           <TableRow>
             <TableHead>ID</TableHead>
@@ -78,7 +78,7 @@ export default function BudgetCodesTable() {
             ))
             : currentBudgetCodes.length > 0 ? (
               currentBudgetCodes.map((budgetCode) => (
-                <TableRow key={budgetCode.id}>
+                <TableRow key={budgetCode.id} data-cy={`budget-code-${budgetCode.id}`}>
                   <TableCell>{budgetCode.id}</TableCell>
                   <TableCell>{budgetCode.CodSalary}</TableCell>
                   <TableCell>{budgetCode.CodExtra}</TableCell>
@@ -86,8 +86,8 @@ export default function BudgetCodesTable() {
                   <TableCell>{budgetCode.CodSalaryPlus}</TableCell>
                   <TableCell>
                     <div className="flex">
-                      <EditBudgetCodeMoadol budgetCode={budgetCode} />
-                      <DeleteBudgetCodeModal id={budgetCode.id} />
+                      <EditBudgetCodeMoadol budgetCode={budgetCode} data-cy={`edit-budget-${budgetCode.id}`}/>
+                      <DeleteBudgetCodeModal id={budgetCode.id} data-cy={`delete-budget-${budgetCode.id}`}/>
                     </div>
                   </TableCell>
                 </TableRow>
