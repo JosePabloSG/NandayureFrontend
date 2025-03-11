@@ -24,14 +24,23 @@ export default function DeleteAnnuityModal({ id }: Props) {
 
   return (
     <>
-      <Button variant="outline" size="icon" onClick={handleDelete}> 
+      <Button 
+        variant="outline" 
+        size="icon" 
+        onClick={handleDelete} 
+        data-cy={`delete-button-${id}`}
+      > 
         <Trash2 className="h-4 w-4" />
       </Button>
-      <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
+      <Dialog 
+        open={isDeleteModalOpen} 
+        onOpenChange={setIsDeleteModalOpen} 
+        data-cy={`delete-modal-${id}`}
+      >
         <DialogContent>
           <DialogHeader>
-            <DialogTitle>Confirmar Eliminación</DialogTitle>
-            <DialogDescription>
+            <DialogTitle data-cy="delete-modal-title">Confirmar Eliminación</DialogTitle>
+            <DialogDescription data-cy="delete-modal-description">
               ¿Estás seguro de que quieres eliminar esta anualidad? Esta acción
               no se puede deshacer.
             </DialogDescription>
@@ -40,10 +49,15 @@ export default function DeleteAnnuityModal({ id }: Props) {
             <Button
               variant="outline"
               onClick={() => setIsDeleteModalOpen(false)}
+              data-cy="delete-cancel-button"
             >
               Cancelar
             </Button>
-            <Button variant="destructive" onClick={confirmDelete}>
+            <Button 
+              variant="destructive" 
+              onClick={confirmDelete} 
+              data-cy="delete-confirm-button"
+            >
               Eliminar
             </Button>
           </DialogFooter>

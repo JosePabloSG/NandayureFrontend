@@ -23,49 +23,51 @@ export default function AnnuitiesTable() {
   }
 
   if (isError) {
-    return <div>Error cargando datos de anualidades.</div>;
+    return <div data-cy="error-loading">Error cargando datos de anualidades.</div>;
   }
 
   return (
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>ID</TableHead>
-            <TableHead>Fecha</TableHead>
-            <TableHead>Descripción</TableHead>
-            <TableHead>Monto</TableHead>
-            <TableHead>Empleado</TableHead>
-            <TableHead>Acciones</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {annuities?.map((annuity) => (
-            <TableRow key={annuity.id}>
-              <TableCell>{annuity.id}</TableCell>
-              <TableCell>
-                {new Date(annuity.Date).toLocaleDateString('es-ES', {
-                  day: '2-digit',
-                  month: '2-digit',
-                  year: 'numeric',
-                })}
-              </TableCell>
-              <TableCell>{annuity.Description}</TableCell>
-              <TableCell>{Number(annuity.Amount || 0).toFixed(2)}</TableCell>
+    <Table data-cy="annuities-table">
+      <TableHeader>
+        <TableRow>
+          <TableHead data-cy="table-head-id">ID</TableHead>
+          <TableHead data-cy="table-head-date">Fecha</TableHead>
+          <TableHead data-cy="table-head-description">Descripción</TableHead>
+          <TableHead data-cy="table-head-amount">Monto</TableHead>
+          <TableHead data-cy="table-head-employee">Empleado</TableHead>
+          <TableHead data-cy="table-head-actions">Acciones</TableHead>
+        </TableRow>
+      </TableHeader>
+      <TableBody>
+        {annuities?.map((annuity) => (
+          <TableRow key={annuity.id} data-cy={`table-row-${annuity.id}`}>
+            <TableCell data-cy={`table-cell-id-${annuity.id}`}>{annuity.id}</TableCell>
+            <TableCell data-cy={`table-cell-date-${annuity.id}`}>
+              {new Date(annuity.Date).toLocaleDateString('es-ES', {
+                day: '2-digit',
+                month: '2-digit',
+                year: 'numeric',
+              })}
+            </TableCell>
+            <TableCell data-cy={`table-cell-description-${annuity.id}`}>{annuity.Description}</TableCell>
+            <TableCell data-cy={`table-cell-amount-${annuity.id}`}>
+              {Number(annuity.Amount || 0).toFixed(2)}
+            </TableCell>
 
-              <TableCell>
-                {annuity.employee 
-                  ? `${annuity.employee.Name} ${annuity.employee.Surname1} ${annuity.employee.Surname2}` 
-                  : 'Empleado desconocido'}
-              </TableCell>
-              <TableCell>
-                <div className="flex">
-                  <EditAnnuityModal annuity={annuity} annuityId={annuity.id} />
-                  <DeleteAnnuityModal id={annuity.id} />
-                </div>
-              </TableCell>
-            </TableRow>
-          ))}
-        </TableBody>
-      </Table>
+            <TableCell data-cy={`table-cell-employee-${annuity.id}`}>
+              {annuity.employee 
+                ? `${annuity.employee.Name} ${annuity.employee.Surname1} ${annuity.employee.Surname2}` 
+                : 'Empleado desconocido'}
+            </TableCell>
+            <TableCell data-cy={`table-cell-actions-${annuity.id}`}>
+              <div className="flex">
+                <EditAnnuityModal annuity={annuity} annuityId={annuity.id} />
+                <DeleteAnnuityModal id={annuity.id} />
+              </div>
+            </TableCell>
+          </TableRow>
+        ))}
+      </TableBody>
+    </Table>
   );
 }

@@ -1,4 +1,4 @@
-describe('Agregar Anualidad', () => {
+describe('Add Annuity', () => {
   beforeEach(() => {
     cy.session('sesion-rh', () => {
       cy.login('rh');
@@ -8,6 +8,17 @@ describe('Agregar Anualidad', () => {
     cy.visit('/');
     cy.get('[data-cy="sidebar-dashboard-home"]').should('be.visible');
   });
+
+  it('navigation annuity', () => {
+    cy.get('[data-cy="user-menu"]').first().click();
+    cy.get('[data-cy="system-configuration-button"]').click();
+    cy.url().should('include', '/system-configuration');
+  })
+
+  it('select annuty', () => {
+    cy.get('[data-cy="sidebar-system-configuration-annuities"]').first().click();
+    cy.url().should('include', '/system-configuration/annuities');
+  })
 
   it('abre el modal de agregar anualidad', () => {
     cy.get('[data-cy="open-add-annuity-modal"]').click();
@@ -22,7 +33,7 @@ describe('Agregar Anualidad', () => {
     cy.get('[data-cy="input-description"]').type('Pago anualidad prueba');
     cy.get('[data-cy="input-amount"]').type('5000');
     
-    cy.get('[data-cy="select-employee"]').select('504510677'); 
+    cy.get('[data-cy="select-employee"]').select('1'); // Ajusta el valor según la opción esperada
 
     cy.get('[data-cy="submit-annuity"]').click();
 
