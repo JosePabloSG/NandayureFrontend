@@ -29,11 +29,11 @@ export default function EditDepartmentProgramModal({
 
   return (
     <>
-      <Button variant="outline" size="icon" className="mr-2">
-        <Pencil onClick={() => setIsEditModalOpen(true)} className="h-4 w-4" />
+      <Button variant="outline" size="icon" className="mr-2" data-cy={`edit-department-program-${departmentProgram.id}`} onClick={() => setIsEditModalOpen(true)}>
+        <Pencil className="h-4 w-4" />
       </Button>
       <Dialog open={isEditModalOpen} onOpenChange={setIsEditModalOpen}>
-        <DialogContent>
+        <DialogContent data-cy="edit-department-program-form">
           <DialogHeader>
             <DialogTitle>Editar Programa Departamental</DialogTitle>
           </DialogHeader>
@@ -49,6 +49,7 @@ export default function EditDepartmentProgramModal({
                     defaultValue={departmentProgram.name}
                     className="col-span-3"
                     type="text"
+                    data-cy="edit-input-program-name"
                     {...register('name')}
                   />
                   {errors?.name && (
@@ -60,7 +61,7 @@ export default function EditDepartmentProgramModal({
               </div>
             </div>
             <DialogFooter>
-              <Button type="submit">Guardar cambios</Button>
+              <Button type="submit" data-cy="submit-edit-department-program"> Guardar cambios </Button>
             </DialogFooter>
           </form>
         </DialogContent>

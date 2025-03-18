@@ -27,11 +27,12 @@ export default function DeleteDepartmentProgramModal({ id }: Props) {
 
   return (
     <>
-      <Button variant="outline" size="icon" onClick={() => handleDelete()}>
+      <Button variant="outline" size="icon" onClick={() => handleDelete()} data-cy={`delete-department-program-${id}`}
+      >
         <Trash2 className="h-4 w-4" />
       </Button>
       <Dialog open={isDeleteModalOpen} onOpenChange={setIsDeleteModalOpen}>
-        <DialogContent>
+        <DialogContent data-cy="delete-department-program-dialog">
           <DialogHeader>
             <DialogTitle>Confirmar Eliminación</DialogTitle>
             <DialogDescription>
@@ -43,10 +44,11 @@ export default function DeleteDepartmentProgramModal({ id }: Props) {
             <Button
               variant="outline"
               onClick={() => setIsDeleteModalOpen(false)}
+              data-cy="cancel-delete-department-program"
             >
               Cancelar
             </Button>
-            <Button variant="destructive" onClick={confirmDelete}>
+            <Button variant="destructive" onClick={confirmDelete} data-cy="confirm-delete-department-program">
               Eliminar
             </Button>
           </DialogFooter>

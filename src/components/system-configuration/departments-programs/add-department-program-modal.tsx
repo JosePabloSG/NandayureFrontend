@@ -23,11 +23,11 @@ export default function AddDepartmentProgramModal() {
 
   return (
     <>
-      <Button onClick={handleAddNew}>
+      <Button onClick={handleAddNew} data-cy="open-add-department-program">
         <Plus className="mr-2 h-4 w-4" /> Agregar Programa Departamental
       </Button>
       <Dialog open={isAddModalOpen} onOpenChange={setIsAddModalOpen}>
-        <DialogContent>
+        <DialogContent data-cy="add-department-program-form">
           <DialogHeader>
             <DialogTitle>Agregar Nuevo Programa Departamental</DialogTitle>
           </DialogHeader>
@@ -39,11 +39,14 @@ export default function AddDepartmentProgramModal() {
                 type="text"
                 register={register}
                 errors={errors}
-              />
-
-            </div>
+                data-cy="input-program-name"
+                />
+              
+                          </div>
             <DialogFooter>
-              <Button type="submit">Agregar program departamental</Button>
+              <Button type="submit" data-cy="submit-add-department-program">
+                Agregar programa departamental
+              </Button>
             </DialogFooter>
           </form>
         </DialogContent>

@@ -42,10 +42,10 @@ export default function DepartmentProgramsTable() {
   };
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-4" data-cy="department-program-list">
       <div className="flex items-center justify-between gap-4">
         <AddDepartmentProgramModal />
-        <SearchBar onSearch={handleSearch} placeholder="Buscar programas..." className="max-w-md" />
+        <SearchBar onSearch={handleSearch} placeholder="Buscar programas..." className="max-w-md" data-cy="search-department-program"/>
       </div>
 
       <Table>
@@ -69,9 +69,9 @@ export default function DepartmentProgramsTable() {
             ))
           ) : currentDepartmentPrograms.length > 0 ? (
             currentDepartmentPrograms.map((departmentProgram) => (
-              <TableRow key={departmentProgram.id}>
+              <TableRow key={departmentProgram.id} data-cy={`department-program-row-${departmentProgram.id}`}>
                 <TableCell>{departmentProgram.id}</TableCell>
-                <TableCell>{departmentProgram.name}</TableCell>
+                <TableCell data-cy={`department-program-name-${departmentProgram.id}`}>{departmentProgram.name}</TableCell>
                 <TableCell>
                   <div className="flex">
                     <EditDepartmentProgramModal departmentProgram={departmentProgram} />
@@ -98,6 +98,7 @@ export default function DepartmentProgramsTable() {
           onPageChange={handlePageChange}
           siblingCount={1}
           className="mt-4"
+          data-cy="department-program-pagination"
         />
       )}
     </div>
