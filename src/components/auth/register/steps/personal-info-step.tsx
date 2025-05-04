@@ -108,8 +108,8 @@ const BirthdateDropdowns = () => {
       render={({ field }) => (
         <FormItem className="flex flex-col">
           <FormLabel>Fecha de Nacimiento</FormLabel>
-          <div className="grid grid-cols-3 gap-2">
-            <div>
+          <div className="grid grid-cols-3 gap-2 w-full">
+            <div className="w-full">
               <Select
                 value={selectedMonth}
                 onValueChange={(value) => {
@@ -122,7 +122,7 @@ const BirthdateDropdowns = () => {
                 }}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Mes" />
                   </SelectTrigger>
                 </FormControl>
@@ -136,14 +136,14 @@ const BirthdateDropdowns = () => {
               </Select>
             </div>
 
-            <div>
+            <div className="w-full">
               <Select
                 value={selectedDay}
                 onValueChange={setSelectedDay}
                 disabled={!selectedMonth}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Día" />
                   </SelectTrigger>
                 </FormControl>
@@ -157,7 +157,7 @@ const BirthdateDropdowns = () => {
               </Select>
             </div>
 
-            <div>
+            <div className="w-full">
               <Select
                 value={selectedYear}
                 onValueChange={(value) => {
@@ -172,7 +172,7 @@ const BirthdateDropdowns = () => {
                 }}
               >
                 <FormControl>
-                  <SelectTrigger>
+                  <SelectTrigger className="w-full">
                     <SelectValue placeholder="Año" />
                   </SelectTrigger>
                 </FormControl>
@@ -375,19 +375,19 @@ export function PersonalInfoStep() {
 
         <BirthdateDropdowns />
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+        <div className="grid grid-cols-2 gap-4 w-full">
           <FormField
             control={control}
             name="GenderId"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Género</FormLabel>
                 <Select
                   onValueChange={(value) => field.onChange(Number.parseInt(value, 10))}
                   value={field.value?.toString() || ""}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Seleccione un género" />
                     </SelectTrigger>
                   </FormControl>
@@ -408,14 +408,14 @@ export function PersonalInfoStep() {
             control={control}
             name="MaritalStatusId"
             render={({ field }) => (
-              <FormItem>
+              <FormItem className="w-full">
                 <FormLabel>Estado Civil</FormLabel>
                 <Select
                   onValueChange={(value) => field.onChange(Number.parseInt(value, 10))}
                   value={field.value?.toString() || ""}
                 >
                   <FormControl>
-                    <SelectTrigger>
+                    <SelectTrigger className="w-full">
                       <SelectValue placeholder="Seleccione un estado civil" />
                     </SelectTrigger>
                   </FormControl>
