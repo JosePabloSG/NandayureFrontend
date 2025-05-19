@@ -30,7 +30,7 @@ export default function JobPositionsTable() {
     name: debouncedSearch || undefined
   })
   const { departments = [] } = useGetAllDepartments(
-    {page: '1', limit: '30'},
+    { page: '1', limit: '30' },
   )
 
   // Update URL when search or page changes
@@ -123,6 +123,7 @@ export default function JobPositionsTable() {
           value={searchValue}
           placeholder="Buscar puestos..."
           className="max-w-md"
+          InputDataCy="search-job-position"
         />
       </div>
 
@@ -140,10 +141,10 @@ export default function JobPositionsTable() {
           {jobPositions.length > 0 ? (
             jobPositions.map((position) => (
               <TableRow key={position.id}>
-                <TableCell>{position.id}</TableCell>
-                <TableCell>{position.Name}</TableCell>
-                <TableCell>{position.Description}</TableCell>
-                <TableCell>
+                <TableCell data-cy={`jobPosition-id-${position.id}`}>{position.id}</TableCell>
+                <TableCell data-cy={`jobPosition-name-${position.id}`}>{position.Name}</TableCell>
+                <TableCell data-cy={`jobPosition-description-${position.id}`}>{position.Description}</TableCell>
+                <TableCell data-cy={`jobPosition-department-${position.id}`}>
                   {departments.find((department) => department.id === position.DepartmentId)?.name || 'N/A'}
                 </TableCell>
                 <TableCell>

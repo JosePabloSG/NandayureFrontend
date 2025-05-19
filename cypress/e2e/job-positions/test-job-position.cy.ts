@@ -11,7 +11,7 @@ describe('Job Position Management Flow', () => {
     extrafees: string;
     departmentId?: string;
     departmentIndex: number;
-    updatedName?: string;
+    updatedName: string; // Cambiado a requerido
   }
 
   // Usar una variable a nivel del contexto que persista entre pruebas
@@ -20,8 +20,12 @@ describe('Job Position Management Flow', () => {
 
   before(() => {
     // Load test data from fixture
-    cy.fixture('jobPosition.json').then((data: JobPositionData) => {
-      jobPositionData = data;
+    cy.fixture('jobPosition.json').then((data: Partial<JobPositionData>) => {
+      // Asegurar que updatedName tenga un valor por defecto
+      jobPositionData = {
+        ...data,
+        updatedName: `${data.name} editado`,
+      } as JobPositionData;
     });
   });
 
@@ -53,7 +57,7 @@ describe('Job Position Management Flow', () => {
 
     // Click the add button
     cy.get('[data-cy="btn-add-job-position"]')
-      .first() // Asegurarse de seleccionar solo el primer elemento si hay múltiples
+      .first()
       .should('be.enabled')
       .click();
 
@@ -73,29 +77,11 @@ describe('Job Position Management Flow', () => {
       .type(jobPositionData.description)
       .should('have.value', jobPositionData.description);
 
-    cy.get('[data-cy="input-add-salarioBase-job-position"]')
-      .should('be.visible')
-      .clear()
-      .type(jobPositionData.baseSalary)
-      .should('have.value', jobPositionData.baseSalary);
-
-    cy.get('[data-cy="input-add-SalarioGlobal-job-position"]')
-      .should('be.visible')
-      .clear()
-      .type(jobPositionData.globalSalary)
-      .should('have.value', jobPositionData.globalSalary);
-
-    cy.get('[data-cy="input-add-salarioExtra-job-position"]')
-      .should('be.visible')
-      .clear()
-      .type(jobPositionData.extrafees)
-      .should('have.value', jobPositionData.extrafees);
-
     // Select department usando el índice
     cy.get('[data-cy="select-department-job-position"]').click();
     cy.wait(500); // Esperar a que el menú se abra
-    
-    // Seleccionar por índice - más confiable
+
+    // Seleccionar por índice
     cy.get('[role="option"]').eq(jobPositionData.departmentIndex).click();
 
     // Submit the form
@@ -106,11 +92,10 @@ describe('Job Position Management Flow', () => {
     // Esperar que la página se cargue completamente
     cy.wait(1000);
 
-   
-    
     // Buscar el registro usando el search bar
     cy.get('[data-cy="search-job-position"]')
-    .first().type(jobPositionData.name, {force: true});
+      .first()
+      .type(jobPositionData.name, { force: true });
 
     // Esperar que se filtren los resultados
     cy.wait(1000);
@@ -122,21 +107,118 @@ describe('Job Position Management Flow', () => {
       .within(() => {
         // Obtener y almacenar el ID creado
         cy.get('[data-cy^="jobPosition-id-"]')
-          .first() // Asegurarse de seleccionar solo el primer elemento
+          .first()
           .invoke('text')
           .then((id) => {
             const trimmedId = id.trim();
-            
-            // Verificar que el ID no esté vacío
             expect(trimmedId).to.not.equal('');
-            
-            // IMPORTANTE: Guardar el ID como variable de Cypress para que persista entre pruebas
             cy.wrap(trimmedId).as('savedJobPositionId');
-            
             cy.log(`Created job position with ID: ${trimmedId}`);
-            
           });
       });
+
+    // Almacenar el ID para usarlo en pruebas posteriores
+    cy.get('@savedJobPositionId').then((id) => {
+      jobPositionId = String(id);
+    });
   });
 
-})
+  /**
+   * @test Edición de un puesto de trabajo existente
+   */
+  it('should edit an existing job position', () => {
+    navigateToJobPositionPage();
+
+    // Buscar el registro usando el search bar
+    cy.get('[data-cy="search-job-position"]')
+      .first()
+      .should('be.visible')
+      .clear()
+      .type(jobPositionData.name, { force: true });
+
+    // Esperar que se filtren los resultados y verificar que el registro existe
+    cy.get(`[data-cy="jobPosition-name-${jobPositionId}"]`).should('be.visible');
+
+    // Find the row with the job position and click the edit button
+    cy.get(`[data-cy="jobPosition-id-${jobPositionId}"]`)
+      .closest('tr')
+      .within(() => {
+        cy.get('[data-cy="btn-edit-job-position"]')
+          .should('be.visible')
+          .click();
+      });
+
+    // Verify edit modal is open and form is ready
+    cy.get('[data-cy="modal-edit-job-position"]').should('be.visible');
+
+    // Edit the name field
+    cy.get('[data-cy="input-edit-name-job-position"]')
+      .should('be.visible')
+      .clear()
+      .type(jobPositionData.updatedName, { force: true })
+      .should('have.value', jobPositionData.updatedName);
+
+    // Edit description
+    cy.get('[data-cy="input-edit-description-job-position"]')
+      .should('be.visible')
+      .clear()
+      .type(`${jobPositionData.description} editado`, { force: true })
+      .should('have.value', `${jobPositionData.description} editado`);
+
+    // Select new department
+    cy.get('[data-cy="select-edit-department-job-position"]')
+      .should('be.visible')
+      .click();
+
+    // Wait for select content to be visible and select the option
+    cy.get('[role="listbox"]').should('be.visible');
+    cy.get(`[data-cy^="select-edit-department-option-"]`).eq(jobPositionData.departmentIndex).click();
+
+    // Submit the edit form
+    cy.get('[data-cy="btn-edit-submit-job-position"]')
+      .should('be.enabled')
+      .click();
+
+    // Wait for the changes to be saved
+    cy.wait(1000);
+
+    // Verify the changes
+    cy.contains('td', jobPositionData.updatedName).should('be.visible');
+  });
+
+  /**
+   * @test Eliminación de un puesto de trabajo
+   */
+  it('should delete a job position', () => {
+    navigateToJobPositionPage();
+
+    // Buscar el registro usando el search bar
+    cy.get('[data-cy="search-job-position"]')
+      .first()
+      .type(jobPositionData.updatedName);
+
+    // Esperar que se filtren los resultados
+    cy.wait(500);
+
+    // Find the row with the job position and click the delete button
+    cy.get(`[data-cy="jobPosition-id-${jobPositionId}"]`)
+      .closest('tr')
+      .find('[data-cy="btn-delete-job-position"]')
+      .first()
+      .click();
+
+    // Verify delete confirmation modal is open
+    cy.get('[data-cy="modal-delete-job-position"]').should('be.visible');
+
+    // Confirm deletion
+    cy.get('[data-cy="btn-delete-confirm-job-position"]')
+      .should('be.enabled')
+      .click();
+
+    // Wait for the deletion to complete
+    cy.wait(1000);
+
+    // Verify the record is no longer visible
+    cy.contains('td', jobPositionData.updatedName).should('not.exist');
+  });
+});

@@ -97,6 +97,7 @@ export default function EditJobPositionsModal({ jobPosition }: Props) {
                         <SelectItem
                           key={department.id}
                           value={department.id.toString()}
+                          data-cy={`select-edit-department-option-${department.id}`}
                         >
                           {department.name}
                         </SelectItem>
