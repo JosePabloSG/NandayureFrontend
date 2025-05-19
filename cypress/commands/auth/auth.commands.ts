@@ -1,11 +1,11 @@
 declare namespace Cypress {
   interface Chainable {
-    login(role: 'rh' | 'user' | 'mayor' | 'department_head'): Chainable<Element>;
+    login(role: 'rh' | 'user' | 'mayor' | 'department_head' | 'ti'): Chainable<Element>;
     logout(): Chainable<Element>;
   }
 }
 
-Cypress.Commands.add('login', (role: 'rh' | 'user' | 'mayor' | 'department_head') => {
+Cypress.Commands.add('login', (role: 'rh' | 'user' | 'mayor' | 'department_head' | 'ti') => {
   if (!role) {
     throw new Error('Debe especificar un rol: "rh", "user" o "mayor".');
   }
